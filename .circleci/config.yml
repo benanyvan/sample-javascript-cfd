@@ -2,7 +2,12 @@ version: 2.1
 
 orbs:
   node: circleci/node@5.0.2
-  
+ 
+workflows:
+  test-deploy:
+    jobs:
+      - test 
+
 jobs:
   test:
     docker:
@@ -17,7 +22,4 @@ jobs:
           command: npm run test
         
         
-workflows:
-  test-deploy:
-    jobs:
-      - test
+
