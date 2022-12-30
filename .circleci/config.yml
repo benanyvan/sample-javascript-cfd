@@ -9,17 +9,23 @@ workflows:
       - test 
 
 jobs:
-  test:
-    docker:
-      - image: cimg/node:19.3.0
+  build_and_test: # this can be any name you choose
+    executor: node/default # use the default executor defined within the orb
     steps:
       - checkout
+      - node/install-packages:
+          pkg-manager: npm
       - run:
-          name: Install dependencies
-          command: npm install
-      - run:
-          name: run tests
           command: npm run test
+          name: Run tests
+      - run:
+          command: npm run build
+          name: Build app
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
+
         
         
 
